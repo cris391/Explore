@@ -10,8 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@log4js-node/slack": "^1.0.0",
     "exceljs": "^1.6.0",
     "log4js": "^3.0.5",
+    "winston": "^3.1.0",
+    "winston-slack": "^0.1.6",
+    "winston-slack-transport": "^2.0.0",
+    "winston-slack-webhook": "^0.1.6",
+    "winston-slacker": "^1.0.3",
     "xlsx": "^0.13.4"
   }
 }
