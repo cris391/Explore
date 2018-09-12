@@ -1,6 +1,4 @@
-const {
-  google
-} = require('googleapis');
+const { google } = require('googleapis');
 var fs = require('fs');
 
 
@@ -24,13 +22,8 @@ fs.readFile('credentials.json', (err, content) => {
  * @param {function} callback The callback to call with the authorized client.
  */
 function authorize(credentials, callback) {
-  const {
-    client_secret,
-    client_id,
-    redirect_uris
-  } = credentials.installed;
-  const oAuth2Client = new google.auth.OAuth2(
-    client_id, client_secret, redirect_uris[0]);
+  const { client_secret, client_id, redirect_uris } = credentials.installed;
+  const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
   // Check if we have previously stored a token.
   fs.readFile(TOKEN_PATH, (err, token) => {
@@ -50,15 +43,9 @@ function authorize(credentials, callback) {
  * @param {getEventsCallback} callback The callback for the authorized client.
  */
 function getAccessToken(oAuth2Client, callback) {
-  const authUrl = oAuth2Client.generateAuthUrl({
-    access_type: 'offline',
-    scope: SCOPES,
-  });
+  const authUrl = oAuth2Client.generateAuthUrl({ access_type: 'offline', scope: SCOPES, });
   console.log('Authorize this app by visiting this url:', authUrl);
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout, });
   rl.question('Enter the code from that page here: ', (code) => {
     rl.close();
     oAuth2Client.getToken(code, (err, token) => {
@@ -84,40 +71,21 @@ function getAccessToken(oAuth2Client, callback) {
  */
 
 function insertFilesInFolder(auth) {
-  const drive = google.drive({
-    version: 'v3',
-    auth
-  });
+  const drive = google.drive({ version: 'v3', auth });
   let folderId = '1SC_6YcwF_8_GscPg1L5bvSiinr7AKdQ7';
-
   let fileId = '1SqPd5eWvnKvy9I-KENc7-qnAvQvEYONU8ipUGCJzwWk';
 
   uploadFile('Yes title');
 
   function uploadFile(fileName) {
-    var fileMetadata = {
-      'name': fileName,
-      addParents: [folderId]
-    };
-    var media = {
-      mimeType: 'application/vnd.google-apps.document',
-      // body: fs.createReadStream('./files/' + fileName)
-    };
-    drive.files.list({
-      // fileId: fileId,
-      // resource: fileMetadata,
-      // media: media,
-      // fields: 'id'
-    }, function (err, file) {
+    var fileMetadata = { 'name': fileName, addParents: [folderId] };
+    var media = { mimeType: 'application/vnd.google-apps.document', body: fs.createReadStream('./files/' + fileName) };
+    drive.files.list({}, function (err, file) {
       if (err) {
-        // Handle error
         console.error(err);
 
       } else {
         console.log(file.data);
-
-        // console.log(`Uploaded ${fileName} to Google Drive with File Id: ${file.data.id}`);
-        // logger.info(`Uploaded ${fileName} to Google Drive with File Id: ${file.data.id}`);
       }
     });
   }
