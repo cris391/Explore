@@ -19,7 +19,7 @@ currWb.xlsx.readFile('CristianExport6.xlsx')
       var uniqueIdentifier;
       var rowSize = row.cellCount;
       // if (rowNumber === 1) {
-      if (rowNumber > 0 && rowNumber < 4) {
+      if (rowNumber > 0 && rowNumber < 3) {
         uniqueIdentifier = row.values[1] + row.values[2] + row.values[3];
 
         // outWs.columns.push({ header: row.values[3], key: row.values[3], width: 40 });
