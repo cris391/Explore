@@ -51,9 +51,9 @@ for (let i = 0; i < fileNames.length; i++) {
 
           if (currColumnHeader) {
             if (cell.text != currColumnHeader) {
-              // var row = worksheet.getRow(5);
-              // var numValues = row.actualCellCount;
-              // console.log(numValues);
+              var row = worksheet.getRow(rowNumber);
+              var numValues = row.actualCellCount;
+              console.log(numValues);
               
               let columnCellValue = cell.text;
               cellValues.push(columnCellValue);
