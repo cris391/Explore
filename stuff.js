@@ -1,41 +1,12 @@
-let array = [{
-  key: 'unique',
-  question: 'Whats your first name',
-  answer: ['Alex', 'Kiki', 'Jenny']
-},
-{
-  key: 'unique',
-  question: 'Whats your last name',
-  answer: ['Pedersen', 'Miguel', 'Cerveza']
-},
-{
-  key: 'unique',
-  question: 'Whats your height',
-  answer: [167, 194, 179]
-}
-]
+let array = [
+  ,
+  '(CN) Laundry detergent task design Non-buyers.xlsx',
+  'First Question',
+  '#',
+  '45f216ff038877fe23af804901a3f526'
+];
 
-let array1=[[], [], [], [], [], []];
+array.pop(0)
+// array.splice(0, 1);
+console.log(array);
 
-for (let index = 0; index < array.length; index++) {
-  for (let j = 0; j < array[index].answer.length; j++) {
-    array1[j].push(array[index].answer[j])
-    
-    // console.log(`${j}: ${array[index].answer[j]}`)
-  }
-}
-
-
-console.log(array1);
-
-
-// const map1 = array[0].answer.map(x => {
-//   let index = array[0].answer.indexOf(x);
-//   for (let i = 1; i < array.length; i++) {
-//     console.log();
-//     return [x, array[i].answer[index]]
-//   }
-// }
-// );
-
-// console.log(map1);
