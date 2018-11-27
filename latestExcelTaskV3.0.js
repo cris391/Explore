@@ -1,104 +1,166 @@
 var Excel = require('exceljs');
 const fs = require('fs');
-var fileNames = [];
-// var hardcodedFileName = 'Perspirex BR pt. 1 PRE.xlsx';
-fs.readdirSync('./cris/').forEach(file => {
-  fileNames.push(file);
-});
+// const hardcodedFileName = 'Cris_29 Oct_Sample 5 Corrected Data.xlsx';
+const hardcodedFileName = 'Cris_27 Nov_Final.xlsx';
 
-// Read index xlsx and store row values
-var wbIndex = new Excel.Workbook();
-var templateColumns = [];
-
-wbIndex.xlsx.readFile('./CristianExportV3.2.xlsx').then(function() {
-  var wsIndex = wbIndex.getWorksheet(1);
-  wsIndex.eachRow(function(row, rowNumber) {
-    templateColumns.push([row.values[1], row.values[2], row.values[3]]);
-  });
-
-  formatSheet(function() {
-    outWb.xlsx.writeFile('CristianExport6.1.xlsx').then(function() {
-      console.log('Finished writing to CristianExport6.1');
-    });
-  });
-});
-
-var inputWb = new Excel.Workbook();
+var readWorkBook = new Excel.Workbook();
 var outWb = new Excel.Workbook();
 var outWs = outWb.addWorksheet('My Sheet');
+outWs.addRow(['File Name Questions', 'Required Column', 'Actual Fields in excel']);
 
-let i = 0;
-function formatSheet(callback) {
-  i++;
-  // for (let i = 0; i < fileNames.length; i++) {
-  const fileName = fileNames[i];
+readWorkBook.xlsx.readFile(`./${hardcodedFileName}`).then(function() {
+  var readWorksheet = readWorkBook.getWorksheet(1);
 
-  // inputWb.xlsx.readFile(`./cris/${hardcodedFileName}`).then(function () {
-  inputWb.xlsx.readFile(`./Cris/${fileName}`).then(function() {
-    var inputWs = inputWb.getWorksheet(1);
-    var columnCount = inputWs.columnCount;
-    var batchColumnHeaders = [];
-    for (index = 1; index <= columnCount; index++) {
-      let currColumn = inputWs.getColumn(index);
-      let currColumnHeader = currColumn.values[1];
-      batchColumnHeaders.push([index, currColumnHeader]);
-    }
+  let arr = readWorksheet.getRow(1).values;
+  arr.splice(0, 2);
 
-    for (let i = 0; i < templateColumns.length; i++) {
-      let requiredColumn = '';
-      requiredColumn = templateColumns[i][1];
-      // if (templateColumns[i][0] === hardcodedFileName && batchColumnHeaders.find(el => el[1] === templateColumns[i][2])) {
-      if (templateColumns[i][0] === fileName && batchColumnHeaders.find(el => el[1] === templateColumns[i][2])) {
-        var cellValues = [];
-        let columnObj = batchColumnHeaders.find(function(element) {
-          return element[1] == templateColumns[i][2];
-        });
-        let columnIndex = columnObj[0];
-        let currColumn = inputWs.getColumn(columnIndex);
-        let currColumnHeader = currColumn.values[1];
-        currColumn.eachCell(function(cell, rowNumber) {
-          if (currColumnHeader) {
-            if (cell.text != currColumnHeader) {
-              let columnCellValue = cell.text;
-              cellValues.push(columnCellValue);
-              // console.log(columnCellValue);
-            }
-          }
-        });
-        // let flatArray = [hardcodedFileName, requiredColumn, currColumnHeader, ...cellValues]
-        let flatArray = [fileName, requiredColumn, currColumnHeader, ...cellValues];
-        // console.log(cellValues);
+  readWorksheet.eachRow({ includeEmpty: true }, function(row, rowNumber) {
+    if (rowNumber > 1) {
+      let rowValues = row.values;
 
-        outWs.addRow(flatArray);
-        // console.log(cellValues);
+      let fileName = rowValues[1];
+      let columnIndex = 0;
+      for (let index = 2; index < rowValues.length; index++) {
+        const cellValue = rowValues[index];
+        let outCellValue = cellValue;
+
+        if (cellValue == null) {
+          outCellValue = '-';
+        }
+
+        outWs.addRow([fileName, arr[columnIndex], outCellValue]);
+        columnIndex++;
       }
-      // if (templateColumns[i][0] === hardcodedFileName && !batchColumnHeaders.find(el => el[1] === templateColumns[i][2])) {
-      if (templateColumns[i][0] === fileName && !batchColumnHeaders.find(el => el[1] === templateColumns[i][2])) {
-        // let flatArray = [hardcodedFileName, requiredColumn, '-']
-        let flatArray = [fileName, requiredColumn, '-', '-'];
-        // console.log(cellValues);
-
-        outWs.addRow(flatArray);
-      }
-    }
-    console.log('%s: %s', i, fileName);
-
-    if (i < fileNames.length - 1) {
-      try {
-        formatSheet(callback);
-        // setTimeout(formatSheet, 100);
-      } catch (err) {
-        console.log(err);
-      }
-      // formatSheet(callback);
-    } else {
-      callback();
     }
   });
-  // outWb.xlsx.writeFile('CristianExport6.1.xlsx').then(function() {});
-}
-// formatSheet(function() {
-//   outWb.xlsx.writeFile('CristianExport6.1.xlsx').then(function() {
-//     console.log('Finished writing to CristianExport6.1');
-//   });
-// });
+
+  outWb.xlsx.writeFile('CristianExport3.0.xlsx').then(function() {
+    console.log('Finished writing CristianExport3.0.xlsx');
+    console.log('########################################');
+  });
+});
+
+const columns = [
+  // '',
+  'First Question',
+  'Name',
+  'First Name',
+  'Last Name',
+  'Email ID',
+  'Age',
+  'Year of Birth',
+  'Gender',
+  'Monthly Income',
+  'Annual Household Income',
+  'Annual Income',
+  'Job',
+  'Country - China',
+  'Children',
+  'Job Title',
+  'Country - UK',
+  'Country - US',
+  'Country',
+  'Hotel',
+  'Job',
+  'Phone#',
+  'Shopping Mall Job',
+  'Financial Sector Job',
+  'Water Service Job',
+  'Aquaculture Job',
+  'Country - Ohio',
+  'Education',
+  'Country - Sweden',
+  'Country - Denmark / Global',
+  'CMO Job',
+  'Construction Job',
+  'Dairy Job',
+  'Hearing Aid User',
+  'Country - Germany',
+  'Country - Norway',
+  'Country - Finland',
+  'Architect Job',
+  'Country - Denmark',
+  'Logistics Job',
+  'Bank Job',
+  'Operations Job',
+  'Procurement Job',
+  'Marital Status',
+  'Catheter User',
+  'Country - Europe',
+  'Cutting Tool Buyer Job',
+  'Country - Netherlands',
+  'Sugar Industry Job',
+  'Energy Procurement Job',
+  'Engineer US Job',
+  'Flying Tiger Job',
+  'Country - France',
+  'Skype ID',
+  'Country - Asia',
+  'Country - Spain',
+  'Teacher Job',
+  'Health Products Consumer',
+  'Coffee Lover',
+  'Orbital Steering Systems Job',
+  'CFO Job',
+  'Pump Distributor',
+  'Marine Job',
+  'Country - Stockholm',
+  "Company's Annual Income",
+  'Cigar Industry Job',
+  'VELUX window',
+  'Country - Japan',
+  'Bank Customers',
+  'House Owner',
+  'Fretilizer User',
+  'Thailand Distributor',
+  'US Distributor',
+  'T&C',
+  'Start Date',
+  'Finish Date',
+  'Network ID'
+];
+
+const columnsOld = [
+  '',
+  // 'Project Name',
+  // 'Project Code',
+  // 'Language',
+  'First Question',
+  'Name',
+  'First Name',
+  'Last Name',
+  'Age',
+  'Year of Birth',
+  'Gender',
+  'Email ID',
+  'Income',
+  'Job',
+  'Country - China',
+  'Country - UK',
+  'Job Title',
+  'Country - US',
+  'Country',
+  'Phone#',
+  'household income',
+  'Country - Ohio',
+  'Education',
+  'Country - Sweden',
+  'Country - Denmark / Global',
+  'Country - Germany',
+  'Country - Norway',
+  'Country - Finland',
+  'Country - Denmark',
+  'Marital Status',
+  'Country - Europe',
+  'Country - Netherlands',
+  'Country - France',
+  'Country - Gernamy',
+  'Skype ID',
+  'Country - Asia',
+  'Country - Spain',
+  'Country - Stockholm',
+  'Country - Japan',
+  'Start Date',
+  'Finish Date',
+  'Network ID'
+];

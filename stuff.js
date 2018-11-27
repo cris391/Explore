@@ -8,5 +8,5 @@ let array = [
 
 array.pop(0)
 // array.splice(0, 1);
-console.log(array);
+console.log("", 1, 2);
 
