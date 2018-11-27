@@ -34,14 +34,12 @@ var outWs = outWb.addWorksheet('My Sheet');
 let i = 0;
 function formatSheet(callback) {
   i++;
-  // for (let i = 0; i < fileNames.length; i++) {
   const fileName = fileNames[i];
-
-  // inputWb.xlsx.readFile(`./cris/${hardcodedFileName}`).then(function () {
   inputWb.xlsx.readFile(`./Cris/${fileName}`).then(function() {
     var inputWs = inputWb.getWorksheet(1);
     var columnCount = inputWs.columnCount;
     var batchColumnHeaders = [];
+
     for (index = 1; index <= columnCount; index++) {
       let currColumn = inputWs.getColumn(index);
       let currColumnHeader = currColumn.values[1];
@@ -69,16 +67,13 @@ function formatSheet(callback) {
             }
           }
         });
-        // let flatArray = [hardcodedFileName, requiredColumn, currColumnHeader, ...cellValues]
+
         let flatArray = [fileName, requiredColumn, currColumnHeader, ...cellValues];
-        // console.log(cellValues);
 
         outWs.addRow(flatArray);
         // console.log(cellValues);
       }
-      // if (templateColumns[i][0] === hardcodedFileName && !batchColumnHeaders.find(el => el[1] === templateColumns[i][2])) {
       if (templateColumns[i][0] === fileName && !batchColumnHeaders.find(el => el[1] === templateColumns[i][2])) {
-        // let flatArray = [hardcodedFileName, requiredColumn, '-']
         let flatArray = [fileName, requiredColumn, '-', '-'];
         // console.log(cellValues);
 
@@ -92,19 +87,12 @@ function formatSheet(callback) {
     if (i < fileNames.length - 1) {
       try {
         formatSheet(callback);
-        // setTimeout(formatSheet, 100);
       } catch (err) {
         console.log(err);
       }
-      // formatSheet(callback);
     } else {
       callback();
     }
   });
-  // outWb.xlsx.writeFile('CristianExport6.1.xlsx').then(function() {});
+
 }
-// formatSheet(function() {
-//   outWb.xlsx.writeFile('CristianExport6.1.xlsx').then(function() {
-//     console.log('Finished writing to CristianExport6.1');
-//   });
-// });

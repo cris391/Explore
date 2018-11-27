@@ -14,7 +14,7 @@ readWorkBook.xlsx.readFile(`./${hardcodedFileName}`).then(function() {
     rowArrays.push(row.values);
   });
   // console.log(rowArrays);
-
+  
   // mapping each array based on filename property to object with unique key of filename
   console.log('Mapping each array to filename property key..');
   let rowsObj = {};
@@ -50,13 +50,6 @@ readWorkBook.xlsx.readFile(`./${hardcodedFileName}`).then(function() {
       individualFileWs = outWb.addWorksheet(currColumnHeaderFile);
     }
 
-    let temp = ['File Name'];
-    // for (let i = 0; i < rowArrays[index].length; i++) {
-    //   if (index == 0) {
-    //   }
-    //   // individualFileWs.getColumn(i+1).values = rowArrays[index][i];
-    //   individualFileWs.getColumn(i + 1).values = [1, 2, 3];
-    // }
     if (index % 6000 == 0) {
       console.log(index);
     }
@@ -69,7 +62,6 @@ readWorkBook.xlsx.readFile(`./${hardcodedFileName}`).then(function() {
             individualFileWs.getColumn(index + 1).values = col;
           });
         }
-
         // console.log(element);
       }
     }

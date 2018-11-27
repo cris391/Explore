@@ -10,16 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@log4js-node/slack": "^1.0.0",
-    "array-groupby": "^0.1.0",
-    "excel4node": "^1.6.0",
-    "exceljs": "^1.6.2",
-    "fs-extra": "^7.0.0",
-    "lodash": "^4.17.11",
-    "log4js": "^3.0.5",
-    "moment": "^2.22.2",
-    "set-clustering": "^1.0.1",
-    "sleep": "^5.2.3",
-    "xlsx": "^0.14.0"
+    "exceljs": "^1.6.2"
   }
 }

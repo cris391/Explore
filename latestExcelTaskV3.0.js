@@ -1,5 +1,4 @@
 var Excel = require('exceljs');
-const fs = require('fs');
 // const hardcodedFileName = 'Cris_29 Oct_Sample 5 Corrected Data.xlsx';
 const hardcodedFileName = 'Cris_27 Nov_Final.xlsx';
 

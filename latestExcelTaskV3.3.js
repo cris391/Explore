@@ -1,5 +1,4 @@
 var Excel = require('exceljs');
-const fs = require('fs');
 const hardcodedFileName = 'CristianExport3.2.xlsx';
 
 var readWorkBook = new Excel.Workbook();
