@@ -1,5 +1,7 @@
 var Excel = require('exceljs');
 const fs = require('fs');
+
+console.log('Step 2: Map typeforms values to rows');
 var fileNames = [];
 // var hardcodedFileName = 'Perspirex BR pt. 1 PRE.xlsx';
 fs.readdirSync('./cris/').forEach(file => {
@@ -23,6 +25,9 @@ wbIndex.xlsx.readFile('./CristianExport3.0.xlsx').then(function() {
     outWb.xlsx.writeFile('CristianExport3.1.xlsx').then(function() {
       console.log('Finished writing to CristianExport3.1.xlsx');
       console.log('########################################');
+      fs.unlink('./CristianExport3.0.xlsx', function(err) {
+        if (err) throw err;
+      });
     });
   });
 });
@@ -33,7 +38,6 @@ var outWs = outWb.addWorksheet('My Sheet');
 
 let i = 0;
 function formatSheet(callback) {
-  i++;
   const fileName = fileNames[i];
   inputWb.xlsx.readFile(`./Cris/${fileName}`).then(function() {
     var inputWs = inputWb.getWorksheet(1);
@@ -80,7 +84,7 @@ function formatSheet(callback) {
         outWs.addRow(flatArray);
       }
     }
-    if(i % 100 == 0){
+    if (i % 100 == 0) {
       console.log(i, fileName);
     }
 
@@ -94,5 +98,4 @@ function formatSheet(callback) {
       callback();
     }
   });
-
 }

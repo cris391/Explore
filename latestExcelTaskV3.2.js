@@ -1,10 +1,11 @@
 var Excel = require('exceljs');
-const hardcodedFileName = 'CristianExport3.1.xlsx';
+const fs = require('fs');
 
+console.log('Step 3: Transpose typeform to columns and assign a new sheet for each');
+const hardcodedFileName = 'CristianExport3.1.xlsx';
 var readWorkBook = new Excel.Workbook();
 var outWb = new Excel.Workbook();
 var outWs = outWb.addWorksheet('My Sheet');
-
 let rowArrays = [];
 
 console.log('Reading 3.1 ..');
@@ -71,5 +72,8 @@ readWorkBook.xlsx.readFile(`./${hardcodedFileName}`).then(function() {
   outWb.xlsx.writeFile('CristianExport3.2.xlsx').then(function() {
     console.log('Finished writing CristianExport3.2.xlsx');
     console.log('########################################');
+    fs.unlink('./CristianExport3.1.xlsx', function(err) {
+      if (err) throw err;
+    });
   });
 });

@@ -1,7 +1,7 @@
 var Excel = require('exceljs');
-// const hardcodedFileName = 'Cris_29 Oct_Sample 5 Corrected Data.xlsx';
-const hardcodedFileName = 'Cris_27 Nov_Final.xlsx';
 
+console.log('Step 1: Transpose columns to rows of index sheet');
+const hardcodedFileName = 'Cris_27 Nov_Final.xlsx';
 var readWorkBook = new Excel.Workbook();
 var outWb = new Excel.Workbook();
 var outWs = outWb.addWorksheet('My Sheet');

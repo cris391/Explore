@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "git": "git add . && git commit -m 'nomessage' &&git push origin master",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "git": "git add . && git commit -m 'nomessage' && git push origin master",
+    "start": "node latestExcelTaskV3.0.js && node latestExcelTaskV3.1.js && node latestExcelTaskV3.2.js && node latestExcelTaskV3.3.js",
+    "startAlt": "node latestExcelTaskV3.2.js && node latestExcelTaskV3.0.js && node latestExcelTaskV3.1.js && node latestExcelTaskV3.3.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "exceljs": "^1.6.2"
+    "@angular-devkit/schematics-cli": "^0.11.2",
+    "exceljs": "^1.6.2",
+    "request": "^2.88.0"
   }
 }

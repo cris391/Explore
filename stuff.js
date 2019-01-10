@@ -1,12 +1,26 @@
-let array = [
-  ,
-  '(CN) Laundry detergent task design Non-buyers.xlsx',
-  'First Question',
-  '#',
-  '45f216ff038877fe23af804901a3f526'
-];
+var request = require('request');
+const fs = require('fs');
 
-array.pop(0)
-// array.splice(0, 1);
-console.log("", 1, 2);
+var options = {
+  url: 'https://api.typeform.com/responses/Lq71gm?sort_by=submitted_at&sort_order=desc',
+  method: 'GET',
+  headers: {
+    Authorization: 'Bearer HSEhvFjeahF9qkpPRFecxVJN4sc5ZFwa63ojN2HEdQbd',
+    'Content-Type': 'application/json',
+    Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  }
+};
 
+function callback(error, response, body) {
+  if (!error && response.statusCode == 200) {
+    // var info = JSON.parse(body);
+    console.log(body);
+    
+    // fs.writeFileSync('./typeform.xlsx', body, 'binary');
+    fs.writeFile('test.xlsx', body, 'binary', function(err) {});
+  } else {
+    console.log(error);
+  }
+}
+
+request(options, callback);
