@@ -3,8 +3,9 @@ const fs = require('fs');
 
 console.log('Step 2: Map typeforms values to rows');
 var fileNames = [];
-// var hardcodedFileName = 'Perspirex BR pt. 1 PRE.xlsx';
-fs.readdirSync('./cris/').forEach(file => {
+const filesDir = './aug-dec/';
+// fs.readdirSync('./cris/').forEach(file => {
+fs.readdirSync(filesDir).forEach(file => {
   fileNames.push(file);
 });
 
@@ -36,15 +37,15 @@ var inputWb = new Excel.Workbook();
 var outWb = new Excel.Workbook();
 var outWs = outWb.addWorksheet('My Sheet');
 
-let i = 0;
+let indexFile = 0;
 function formatSheet(callback) {
-  const fileName = fileNames[i];
-  inputWb.xlsx.readFile(`./Cris/${fileName}`).then(function() {
+  const fileName = fileNames[indexFile];
+  inputWb.xlsx.readFile(filesDir + fileName).then(function() {
     var inputWs = inputWb.getWorksheet(1);
     var columnCount = inputWs.columnCount;
     var batchColumnHeaders = [];
 
-    for (index = 1; index <= columnCount; index++) {
+    for (let index = 1; index <= columnCount; index++) {
       let currColumn = inputWs.getColumn(index);
       let currColumnHeader = currColumn.values[1];
       batchColumnHeaders.push([index, currColumnHeader]);
@@ -84,12 +85,13 @@ function formatSheet(callback) {
         outWs.addRow(flatArray);
       }
     }
-    if (i % 100 == 0) {
-      console.log(i, fileName);
+    if (indexFile % 100 == 0) {
+      console.log(indexFile, fileName);
     }
 
-    if (i < fileNames.length - 1) {
+    if (indexFile < fileNames.length - 1) {
       try {
+        indexFile++;
         formatSheet(callback);
       } catch (err) {
         console.log(err);

@@ -38,8 +38,9 @@ readWorkBook.xlsx.readFile(`./${hardcodedFileName}`).then(function() {
   let currColumnHeaderFile = '';
   let headerArr = [];
   let individualFileWs;
-  console.log('Out of ', 71400);
-  for (let index = 0; index < rowArrays.length; index++) {
+  const rowArrayLength = rowArrays.length;
+  console.log('Out of', rowArrayLength);
+  for (let index = 0; index < rowArrayLength; index++) {
     if (currColumnHeaderFile == '') {
       currColumnHeaderFile = rowArrays[index][1];
       headerArr.push(rowArrays[index][1]);
