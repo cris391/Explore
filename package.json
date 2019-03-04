@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "git": "git add . && git commit -m 'nomessage' && git push origin master",
+    "step1": "node mergeColumns.js",
+    "step2": "node putOneBellowTheOther.js",
     "start": "node latestExcelTaskV3.0.js && node latestExcelTaskV3.1.js && node latestExcelTaskV3.2.js && node latestExcelTaskV3.3.js",
-    "startAlt": "node latestExcelTaskV3.2.js && node latestExcelTaskV3.0.js && node latestExcelTaskV3.1.js && node latestExcelTaskV3.3.js"
   },
   "author": "",
   "license": "ISC",

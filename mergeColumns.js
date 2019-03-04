@@ -1,7 +1,8 @@
+//step 1
 var Excel = require('exceljs');
 const fs = require('fs');
 
-const excelsPath = './aug-dec/';
+const excelsPath = './jan-feb2019/';
 var fileNames = [];
 fs.readdirSync(excelsPath).forEach(file => {
   fileNames.push(file);
@@ -21,7 +22,7 @@ function formatSheet(callback) {
     row.splice(0, 1);
     outWs.addRow([fileName, ...row]);
 
-    if (i % 100 == 0) {
+    if (i % 1 == 0) {
       console.log(i, fileName);
     }
 
@@ -40,7 +41,7 @@ function formatSheet(callback) {
 }
 
 formatSheet(function() {
-  outWb.xlsx.writeFile('MergedTypeform.xlsx').then(function() {
-    console.log('Finished writing to MergedTypeform.xlsx');
+  outWb.xlsx.writeFile('Step1Output.xlsx').then(function() {
+    console.log('Finished writing to Step1Output.xlsx');
   });
 });
